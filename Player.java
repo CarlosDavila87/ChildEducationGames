@@ -4,10 +4,10 @@ public class Player {
 	private int score;
 	private Difficulty difficulty;
 	
-	public Player(String name, Difficulty difficulty){
-		this.name = name;
+	public Player(){
+		this.name = "";
 		this.score = 0;
-		this.difficulty = difficulty;
+		this.difficulty = Difficulty.EASY;
 	}
 
 	public String getName() {
@@ -32,6 +32,10 @@ public class Player {
 
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
+	}
+	
+	public void incrimentScore(){
+		this.score+=1;
 	}
 
 }

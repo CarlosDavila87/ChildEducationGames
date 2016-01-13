@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 
 public class FlashCards extends JFrame implements ActionListener{
 	
-	private int int1,int2,answer,totalCorrect,totalProblems, count;
+	private int int1,int2,answer,totalCorrect,totalProblems, count, bound;
 	private JLabel problemLabel;
 	private JLabel totalLabel;
 	private JPanel panel;
@@ -31,6 +31,7 @@ public class FlashCards extends JFrame implements ActionListener{
 	private JMenuBar menuBar;
 	private JMenu file, difficulty, settings;
 	private JMenuItem newGame, exit, easy, medium, hard;
+	private Player player;
 	private NewGameMenu newGameMenu;
 
 	private StringBuilder builder;
@@ -50,6 +51,7 @@ public class FlashCards extends JFrame implements ActionListener{
 		 totalCorrect = 0;
 		 totalProblems = 0;
 		 
+		 player = new Player();
 		 c = new GridBagConstraints();
 		 
 		 panel = new JPanel(new GridBagLayout());
@@ -161,6 +163,7 @@ public class FlashCards extends JFrame implements ActionListener{
 	  */
 	 private void randomAddition(){
 			Random random = new Random();
+		//bound sets the upper bound when randomizing numbers
 			int1 = random.nextInt(11);
 			int2 = random.nextInt(11);
 			answer = int1 + int2;
@@ -168,6 +171,23 @@ public class FlashCards extends JFrame implements ActionListener{
 			setProblemLabel();
 			setTotalLabel();
 		}
+	 private boolean makeUniqueAnswers(){
+		 boolean pass = false;
+		 while(!pass){
+			 if(buttons[0] == buttons[1]){
+				 //randomize buttons[1]
+			 }
+			 else if(buttons[1] == buttons[2]){
+					 //randomize buttons[2]
+			 }
+			 else if(buttons[2] == buttons[3]){
+					//randomize buttons[3]
+					 }
+			 else
+				 pass = true;
+		 }
+		 return pass;
+	 }
 	 /**
 	  * This method checks to see if button clicked matches the correct answer to the problem
 	  * @param button clicked 
@@ -186,7 +206,7 @@ public class FlashCards extends JFrame implements ActionListener{
 		 Random random = new Random();
 		 int [] randoms = new int[4]; // used for random position in JButton [] buttons 
 		 
-		 //Assigns random integers & answer to random buttons
+	//Assigns random integers & answer to random buttons
 		 for(int i = 0; i < 4; i++){
 		 randoms[i] = random.nextInt(4);
 		 buttons[i].setText(Integer.toString(randoms[i]));
@@ -212,10 +232,10 @@ public class FlashCards extends JFrame implements ActionListener{
 /*-----------------------------------------------
  * -------------MAIN METHOD----------------------
  * ---------------------------------------------*/
-	public static void main(String[] args){
-		FlashCards test = new FlashCards("Flash Cards Game");
-		test.randomAddition();
-	}
+//	public static void main(String[] args){
+//		FlashCards test = new FlashCards("Flash Cards Game");
+//		test.randomAddition();
+//	}
 
 	@Override
 	public void actionPerformed(ActionEvent e){
@@ -227,7 +247,10 @@ public class FlashCards extends JFrame implements ActionListener{
 		}
 		else if(e.getSource() == newGame){
 			System.out.println("New Game Selected");
-			newGameMenu = new NewGameMenu();
+			newGameMenu =new NewGameMenu();
+//			player = newGameMenu.createPlayer();
+//			System.out.println("Name : " + player.getName());
+//			System.out.println("Difficulty " + player.getDifficulty().getDifficulty());
 		}
 		//Casts the source to a JButton and performs random addition
 		else if(e.getSource() == buttons[0] || e.getSource() == buttons[1] || 
@@ -238,6 +261,15 @@ public class FlashCards extends JFrame implements ActionListener{
 			if(pass)
 				totalCorrect+=1;
 			this.randomAddition(); 
+		}
+		else if(e.getSource() == easy){
+			bound = Difficulty.EASY.getBound();
+		}
+		else if(e.getSource() == medium){
+			bound = Difficulty.MEDIUM.getBound();
+		}
+		else if(e.getSource() == hard){
+			bound = Difficulty.HARD.getBound();
 		}
 	}
 }

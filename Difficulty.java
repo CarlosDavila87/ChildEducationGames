@@ -1,38 +1,26 @@
 
 public enum Difficulty {
-	EASY("Easy",1,10), 
-	MEDIUM("Medium",1,50), 
-	HARD("Hard",1,100);
+	EASY("Easy", 10), 
+	MEDIUM("Medium", 50), 
+	HARD("Hard", 100);
 	
 	private String diff;
-	private int lbound, ubound;
-	
-	public int getLbound() {
-		return lbound;
+	private int bound;
+
+	public int getBound() {
+		return bound;
 	}
 
-	public void setLbound(int lbound) {
-		this.lbound = lbound;
+	public void setBound(int ubound) {
+		this.bound = ubound;
 	}
 
-	public int getUbound() {
-		return ubound;
-	}
-
-	public void setUbound(int ubound) {
-		this.ubound = ubound;
-	}
-
-	Difficulty(String diff, int lowerBound, int upperBound){
+	Difficulty(String diff, int upperBound){
 		this.diff = diff;
-		this.lbound = lowerBound;
-		this.ubound = upperBound;
+		this.bound = upperBound;
 	}
 	
 	public String getDifficulty(){
 		return diff;
 	}
-
-	
-	
 }
